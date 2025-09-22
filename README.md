@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CloudMaster - Comprehensive Cloud Computing Education Platform
 
 ![CloudMaster Logo](https://via.placeholder.com/200x80/3B82F6/FFFFFF?text=CloudMaster)
@@ -388,3 +389,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Made with ❤️ by the CloudMaster Team**
 
 For more information, visit our [website](https://cloudmaster.com) or check out our [documentation](https://docs.cloudmaster.com).
+=======
+# CloudMaster
+>>>>>>> 68988cf121e003a653df5060f1293c859c18d6a9
