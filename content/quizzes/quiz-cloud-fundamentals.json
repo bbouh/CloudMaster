@@ -1,0 +1,246 @@
+{
+  "id": "quiz-cloud-fundamentals",
+  "title": "Cloud Computing Fundamentals Quiz",
+  "title_ar": "اختبار أساسيات الحوسبة السحابية",
+  "description": "Test your understanding of cloud computing fundamentals",
+  "description_ar": "اختبر فهمك لأساسيات الحوسبة السحابية",
+  "time_limit": 15,
+  "passing_score": 70,
+  "max_attempts": 3,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What does IaaS stand for in cloud computing?",
+      "question_ar": "ماذا تعني IaaS في الحوسبة السحابية؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Infrastructure as a Service",
+        "Internet as a Service",
+        "Integration as a Service",
+        "Information as a Service"
+      ],
+      "options_ar": [
+        "البنية التحتية كخدمة",
+        "الإنترنت كخدمة",
+        "التكامل كخدمة",
+        "المعلومات كخدمة"
+      ],
+      "correct_answer": "Infrastructure as a Service",
+      "explanation": "IaaS stands for Infrastructure as a Service, which provides virtualized computing resources over the internet.",
+      "explanation_ar": "IaaS تعني البنية التحتية كخدمة، والتي توفر موارد الحوسبة الافتراضية عبر الإنترنت."
+    },
+    {
+      "id": "q2",
+      "question": "Which of the following is NOT a characteristic of cloud computing?",
+      "question_ar": "أي من التالي ليس من خصائص الحوسبة السحابية؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "On-demand self-service",
+        "Broad network access",
+        "Resource pooling",
+        "Physical hardware ownership"
+      ],
+      "options_ar": [
+        "الخدمة الذاتية عند الطلب",
+        "الوصول الواسع للشبكة",
+        "تجمع الموارد",
+        "ملكية الأجهزة المادية"
+      ],
+      "correct_answer": "Physical hardware ownership",
+      "explanation": "Physical hardware ownership is not a characteristic of cloud computing. Cloud computing is about using shared resources rather than owning physical hardware.",
+      "explanation_ar": "ملكية الأجهزة المادية ليست من خصائص الحوسبة السحابية. الحوسبة السحابية تدور حول استخدام الموارد المشتركة بدلاً من امتلاك الأجهزة المادية."
+    },
+    {
+      "id": "q3",
+      "question": "In the SaaS model, what does the customer typically manage?",
+      "question_ar": "في نموذج SaaS، ماذا يدير العميل عادة؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Applications and data",
+        "Operating systems and middleware",
+        "Virtualization and servers",
+        "Only data"
+      ],
+      "options_ar": [
+        "التطبيقات والبيانات",
+        "أنظمة التشغيل والبرمجيات الوسيطة",
+        "الافتراضية والخوادم",
+        "البيانات فقط"
+      ],
+      "correct_answer": "Only data",
+      "explanation": "In SaaS, the customer typically only manages their data. The provider manages all the underlying infrastructure, platform, and applications.",
+      "explanation_ar": "في SaaS، يدير العميل عادة بياناته فقط. يتحكم المزود في جميع البنية التحتية الأساسية والمنصة والتطبيقات."
+    },
+    {
+      "id": "q4",
+      "question": "Which cloud deployment model offers the highest level of control and security?",
+      "question_ar": "أي نموذج نشر سحابي يوفر أعلى مستوى من التحكم والأمان؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Public cloud",
+        "Private cloud",
+        "Hybrid cloud",
+        "Community cloud"
+      ],
+      "options_ar": [
+        "السحابة العامة",
+        "السحابة الخاصة",
+        "السحابة المختلطة",
+        "السحابة المجتمعية"
+      ],
+      "correct_answer": "Private cloud",
+      "explanation": "Private cloud offers the highest level of control and security because it's dedicated to a single organization and can be customized to meet specific security requirements.",
+      "explanation_ar": "السحابة الخاصة توفر أعلى مستوى من التحكم والأمان لأنها مخصصة لمنظمة واحدة ويمكن تخصيصها لتلبية متطلبات الأمان المحددة."
+    },
+    {
+      "id": "q5",
+      "question": "What is the main advantage of using a hybrid cloud model?",
+      "question_ar": "ما هي الميزة الرئيسية لاستخدام نموذج السحابة المختلطة؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Lower costs",
+        "Better performance",
+        "Flexibility and choice",
+        "Simpler management"
+      ],
+      "options_ar": [
+        "تكاليف أقل",
+        "أداء أفضل",
+        "المرونة والاختيار",
+        "إدارة أبسط"
+      ],
+      "correct_answer": "Flexibility and choice",
+      "explanation": "The main advantage of hybrid cloud is flexibility and choice, allowing organizations to use the best of both public and private clouds for different workloads.",
+      "explanation_ar": "الميزة الرئيسية للسحابة المختلطة هي المرونة والاختيار، مما يسمح للمنظمات باستخدام أفضل ما في السحابات العامة والخاصة لأحمال العمل المختلفة."
+    },
+    {
+      "id": "q6",
+      "question": "Which of the following is an example of a PaaS service?",
+      "question_ar": "أي من التالي مثال على خدمة PaaS؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Amazon EC2",
+        "Microsoft Office 365",
+        "Google App Engine",
+        "Dropbox"
+      ],
+      "options_ar": [
+        "Amazon EC2",
+        "Microsoft Office 365",
+        "Google App Engine",
+        "Dropbox"
+      ],
+      "correct_answer": "Google App Engine",
+      "explanation": "Google App Engine is a PaaS service that provides a platform for developing and hosting web applications without managing the underlying infrastructure.",
+      "explanation_ar": "Google App Engine هو خدمة PaaS توفر منصة لتطوير واستضافة تطبيقات الويب دون إدارة البنية التحتية الأساسية."
+    },
+    {
+      "id": "q7",
+      "question": "What does 'elasticity' mean in cloud computing?",
+      "question_ar": "ماذا تعني 'المرونة' في الحوسبة السحابية؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "The ability to stretch data across multiple servers",
+        "The ability to rapidly scale resources up or down",
+        "The flexibility to choose different operating systems",
+        "The capability to handle different types of workloads"
+      ],
+      "options_ar": [
+        "القدرة على توزيع البيانات عبر خوادم متعددة",
+        "القدرة على توسيع أو تقليل الموارد بسرعة",
+        "المرونة في اختيار أنظمة تشغيل مختلفة",
+        "القدرة على التعامل مع أنواع مختلفة من أحمال العمل"
+      ],
+      "correct_answer": "The ability to rapidly scale resources up or down",
+      "explanation": "Elasticity in cloud computing refers to the ability to rapidly scale resources up or down based on demand, allowing for cost optimization and performance management.",
+      "explanation_ar": "المرونة في الحوسبة السحابية تشير إلى القدرة على توسيع أو تقليل الموارد بسرعة بناءً على الطلب، مما يسمح بتحسين التكلفة وإدارة الأداء."
+    },
+    {
+      "id": "q8",
+      "question": "Which cloud provider has the largest market share as of 2023?",
+      "question_ar": "أي مزود سحابي لديه أكبر حصة في السوق اعتباراً من 2023؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Microsoft Azure",
+        "Google Cloud Platform",
+        "Amazon Web Services",
+        "IBM Cloud"
+      ],
+      "options_ar": [
+        "Microsoft Azure",
+        "Google Cloud Platform",
+        "Amazon Web Services",
+        "IBM Cloud"
+      ],
+      "correct_answer": "Amazon Web Services",
+      "explanation": "Amazon Web Services (AWS) has the largest market share in cloud computing, with approximately 32% of the market as of 2023.",
+      "explanation_ar": "Amazon Web Services (AWS) لديه أكبر حصة في السوق في الحوسبة السحابية، بحوالي 32% من السوق اعتباراً من 2023."
+    },
+    {
+      "id": "q9",
+      "question": "What is the primary benefit of using cloud computing for businesses?",
+      "question_ar": "ما هي الفائدة الأساسية لاستخدام الحوسبة السحابية للشركات؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Complete control over infrastructure",
+        "Reduced capital expenditure and operational costs",
+        "Guaranteed 100% uptime",
+        "Unlimited storage capacity"
+      ],
+      "options_ar": [
+        "التحكم الكامل في البنية التحتية",
+        "تقليل النفقات الرأسمالية والتكاليف التشغيلية",
+        "ضمان 100% وقت التشغيل",
+        "سعة تخزين غير محدودة"
+      ],
+      "correct_answer": "Reduced capital expenditure and operational costs",
+      "explanation": "The primary benefit of cloud computing is reduced capital expenditure and operational costs, as businesses can avoid upfront hardware investments and pay only for what they use.",
+      "explanation_ar": "الفائدة الأساسية للحوسبة السحابية هي تقليل النفقات الرأسمالية والتكاليف التشغيلية، حيث يمكن للشركات تجنب الاستثمارات الأولية في الأجهزة ودفع ثمن ما تستخدمه فقط."
+    },
+    {
+      "id": "q10",
+      "question": "Which of the following is a common challenge with cloud computing?",
+      "question_ar": "أي من التالي هو تحدي شائع مع الحوسبة السحابية؟",
+      "type": "MULTIPLE_CHOICE",
+      "points": 1,
+      "options": [
+        "Limited scalability",
+        "High upfront costs",
+        "Vendor lock-in",
+        "Poor performance"
+      ],
+      "options_ar": [
+        "قابلية التوسع المحدودة",
+        "التكاليف الأولية العالية",
+        "الاعتماد على المزود",
+        "الأداء الضعيف"
+      ],
+      "correct_answer": "Vendor lock-in",
+      "explanation": "Vendor lock-in is a common challenge in cloud computing, where organizations become dependent on a specific cloud provider's services and find it difficult to migrate to another provider.",
+      "explanation_ar": "الاعتماد على المزود هو تحدي شائع في الحوسبة السحابية، حيث تصبح المنظمات معتمدة على خدمات مزود سحابي محدد وتجد صعوبة في الانتقال إلى مزود آخر."
+    }
+  ],
+  "metadata": {
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z",
+    "version": "1.0",
+    "difficulty_level": "BEGINNER",
+    "estimated_time": 15,
+    "tags": ["cloud-computing", "fundamentals", "iaas", "paas", "saas"],
+    "learning_objectives": [
+      "Understand cloud service models",
+      "Identify cloud deployment models",
+      "Recognize benefits and challenges of cloud computing",
+      "Compare different cloud providers"
+    ]
+  }
+}

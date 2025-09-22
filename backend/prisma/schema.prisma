@@ -1,0 +1,472 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  firstName String
+  lastName  String
+  avatar    String?
+  role      UserRole @default(STUDENT)
+  isActive  Boolean  @default(true)
+  emailVerified Boolean @default(false)
+  emailVerificationToken String?
+  passwordResetToken String?
+  passwordResetExpires DateTime?
+  
+  // OAuth fields
+  googleId String?
+  githubId String?
+  
+  // Profile information
+  bio String?
+  location String?
+  website String?
+  linkedin String?
+  github String?
+  twitter String?
+  
+  // Learning progress
+  currentLevel String @default("BEGINNER")
+  totalXp Int @default(0)
+  streak Int @default(0)
+  lastActiveAt DateTime?
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  enrollments Enrollment[]
+  progress LessonProgress[]
+  labProgress LabProgress[]
+  quizAttempts QuizAttempt[]
+  certificates Certificate[]
+  projects ProjectSubmission[]
+  payments Payment[]
+  reviews CourseReview[]
+  notifications Notification[]
+  
+  @@map("users")
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+// Course Management
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  shortDescription String?
+  thumbnail   String?
+  banner      String?
+  level       CourseLevel
+  category    String
+  tags        String[]
+  duration    Int // in minutes
+  price       Decimal  @default(0)
+  isFree      Boolean  @default(false)
+  isPublished Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  language    String   @default("en")
+  
+  // Course metadata
+  prerequisites String[]
+  learningOutcomes String[]
+  requirements String[]
+  
+  // SEO
+  metaTitle String?
+  metaDescription String?
+  keywords String[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  instructor User @relation(fields: [instructorId], references: [id])
+  instructorId String
+  lessons Lesson[]
+  enrollments Enrollment[]
+  reviews CourseReview[]
+  projects Project[]
+  
+  @@map("courses")
+}
+
+enum CourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String
+  description String
+  content     String // Markdown content
+  videoUrl    String?
+  duration    Int // in minutes
+  order       Int
+  isPublished Boolean  @default(false)
+  isFree      Boolean  @default(false)
+  
+  // Lesson metadata
+  learningOutcomes String[]
+  prerequisites String[]
+  resources String[] // URLs to additional resources
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  progress LessonProgress[]
+  quiz Quiz?
+  
+  @@unique([courseId, slug])
+  @@map("lessons")
+}
+
+model Lab {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String
+  description String
+  instructions String // Markdown content
+  terraformFiles String[] // JSON array of file paths
+  estimatedDuration Int // in minutes
+  difficulty LabDifficulty
+  order       Int
+  isPublished Boolean  @default(false)
+  
+  // Lab metadata
+  prerequisites String[]
+  learningOutcomes String[]
+  costEstimate Decimal? // Estimated cost in USD
+  resources String[] // Required AWS/Azure/GCP resources
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  progress LabProgress[]
+  
+  @@unique([courseId, slug])
+  @@map("labs")
+}
+
+enum LabDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+}
+
+model Quiz {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  timeLimit   Int? // in minutes
+  passingScore Int @default(70) // percentage
+  maxAttempts Int @default(3)
+  isPublished Boolean  @default(false)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  lesson Lesson? @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId String?
+  questions QuizQuestion[]
+  attempts QuizAttempt[]
+  
+  @@map("quizzes")
+}
+
+model QuizQuestion {
+  id       String @id @default(cuid())
+  question String
+  type     QuestionType
+  options  String[] // JSON array for multiple choice
+  correctAnswer String // JSON for different question types
+  explanation String?
+  points   Int @default(1)
+  order    Int
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId String
+  
+  @@map("quiz_questions")
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_BLANK
+  CODE_REVIEW
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  requirements String // Markdown content
+  starterRepo String? // GitHub repository URL
+  difficulty  ProjectDifficulty
+  estimatedHours Int
+  isPublished Boolean  @default(false)
+  
+  // Project metadata
+  technologies String[]
+  learningOutcomes String[]
+  deliverables String[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  submissions ProjectSubmission[]
+  
+  @@map("projects")
+}
+
+enum ProjectDifficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+// Progress Tracking
+model Enrollment {
+  id        String   @id @default(cuid())
+  enrolledAt DateTime @default(now())
+  completedAt DateTime?
+  progress  Int @default(0) // percentage
+  isCompleted Boolean @default(false)
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+model LessonProgress {
+  id        String   @id @default(cuid())
+  completedAt DateTime?
+  timeSpent Int @default(0) // in seconds
+  isCompleted Boolean @default(false)
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId String
+  
+  @@unique([userId, lessonId])
+  @@map("lesson_progress")
+}
+
+model LabProgress {
+  id        String   @id @default(cuid())
+  startedAt DateTime @default(now())
+  completedAt DateTime?
+  status    LabStatus @default(IN_PROGRESS)
+  output    String? // Lab output/results
+  score     Int? // Lab score if applicable
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  lab Lab @relation(fields: [labId], references: [id], onDelete: Cascade)
+  labId String
+  
+  @@unique([userId, labId])
+  @@map("lab_progress")
+}
+
+enum LabStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+model QuizAttempt {
+  id        String   @id @default(cuid())
+  startedAt DateTime @default(now())
+  completedAt DateTime?
+  score     Int
+  passed    Boolean
+  answers   String // JSON array of answers
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId String
+  
+  @@map("quiz_attempts")
+}
+
+model ProjectSubmission {
+  id        String   @id @default(cuid())
+  repositoryUrl String
+  deployedUrl String?
+  description String
+  submittedAt DateTime @default(now())
+  reviewedAt DateTime?
+  score     Int?
+  feedback  String?
+  status    SubmissionStatus @default(SUBMITTED)
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  
+  @@map("project_submissions")
+}
+
+enum SubmissionStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  NEEDS_REVISION
+}
+
+// Certificates and Achievements
+model Certificate {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  issuedAt    DateTime @default(now())
+  certificateUrl String? // URL to PDF certificate
+  verificationCode String @unique
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  course Course? @relation(fields: [courseId], references: [id])
+  courseId String?
+  
+  @@map("certificates")
+}
+
+// Reviews and Ratings
+model CourseReview {
+  id        String   @id @default(cuid())
+  rating    Int // 1-5 stars
+  comment   String?
+  isVerified Boolean @default(false)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  
+  @@unique([userId, courseId])
+  @@map("course_reviews")
+}
+
+// Payment and Subscription
+model Payment {
+  id          String   @id @default(cuid())
+  amount      Decimal
+  currency    String   @default("USD")
+  status      PaymentStatus
+  stripePaymentId String?
+  description String?
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  course Course? @relation(fields: [courseId], references: [id])
+  courseId String?
+  
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+// Notifications
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      NotificationType
+  isRead    Boolean  @default(false)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  
+  @@map("notifications")
+}
+
+enum NotificationType {
+  LESSON_COMPLETED
+  QUIZ_PASSED
+  CERTIFICATE_EARNED
+  COURSE_COMPLETED
+  PAYMENT_SUCCESS
+  SYSTEM_ANNOUNCEMENT
+}
